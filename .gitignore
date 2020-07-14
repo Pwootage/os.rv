@@ -1,0 +1,4 @@
+.vscode
+eeprom/build
+bootloader/build
+bootloader/target
