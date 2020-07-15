@@ -52,10 +52,6 @@ void write_fifo_int32(uint32_t value) {
     write_fifo(BI_INT32, 1);
     write_fifo(value, 4);
 }
-void write_fifo_uuid(const UUID &value) {
-    write_fifo(BI_INT128, 1);
-    write_fifo(&value.value, 16);
-}
 void write_fifo_string(const char *str) {
     // Figure out length
     int len = 0;
@@ -80,32 +76,32 @@ void memcpy(void *dest, const void *src, uint32_t size) {
     }
 }
 
-int fopen(const UUID &target_fs, const char *path) {
+int fopen(const char *target_fs, const char *path) {
     // Invoke
 
     write_fifo_int8(COMPONENT_ID_INVOKE);
-    write_fifo_uuid(target_fs);
+    write_fifo_string(target_fs);
     write_fifo_string("open\0");
     write_fifo_string(path);
     write_fifo_end();
     write_fifo_ready(); 
 }
 
-bool read_kernel(const UUID &target_fs) {
+bool read_kernel(const char *target_fs) {
     int handle = fopen(target_fs, KERNEL_PATH);
 
     return handle > 0;
-} 
+}
 
 extern "C" {
     int main() {
-        // the EEPROM is mapped directly to memory; read out the boot partition ID
-        UUID boot_id;
-        for (int i = 0; i < sizeof(boot_id.value); i++) {
-            boot_id.value[i] = eeprom_data[i];
+        // the EEPROM is mapped directly to memory; read out the boot partition ID (up to 31 chars)
+        char bootID[32];
+        for (int i = 0; i < sizeof(bootID); i++) {
+            bootID[i] = eeprom_data[i];
         }
         // Attempt to read /kernel
-        bool res = read_kernel(boot_id);
+        bool res = read_kernel(bootID);
 
         // Hang
         while (1) {}
