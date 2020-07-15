@@ -9,7 +9,10 @@ _start:
     la gp, __global_pointer$
 .option pop
 
-    li sp, 0x88000000
+    la sp, 0x7FFF0000
+    lw sp, (sp)
+    li a0, 0x80000000
+    add sp, a0, sp
     add s0, sp, zero
     jal zero, main
 .cfi_endproc

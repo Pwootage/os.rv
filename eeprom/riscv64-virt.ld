@@ -3,7 +3,7 @@ ENTRY(_start)
 SECTIONS
 {
   /* Read-only sections, merged into text segment: */
-  . = 0x11000000;
+  . = 0x20000000;
   .init : { KEEP (*(SORT_NONE(.init))) }
   .text : { *(.text .text.*) }
   .rodata : { *(.rodata .rodata.*) }
