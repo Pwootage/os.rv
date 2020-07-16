@@ -20,7 +20,7 @@ ${CXX} \
   -march=rv32im \
   -T riscv64-virt.ld \
   -g \
-  -Os \
+  -O0 \
   -o build/eeprom \
   main.cpp \
   boot.S
