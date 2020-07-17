@@ -41,7 +41,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "hello-os-rust"
+name = "kernel"
 version = "0.1.0"
 dependencies = [
  "goblin",

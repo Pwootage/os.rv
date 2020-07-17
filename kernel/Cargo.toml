@@ -1,5 +1,5 @@
 [package]
-name = "hello-os-rust"
+name = "kernel"
 version = "0.1.0"
 authors = ["Pwootage <pwootage@gmail.com>"]
 edition = "2018"

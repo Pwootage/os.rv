@@ -3,10 +3,15 @@
 
 use riscv_rt::entry;
 use core::panic::PanicInfo;
+use peripherals::basic_fifo::BasicFIFO;
 
 #[entry]
 fn main() -> ! {
     // do something here
+    let mut fifo = BasicFIFO::panic_fifo();
+    fifo.write("Hello, kernel panic!");
+    fifo.write_ready();
+
     loop { }
 }
 
@@ -18,4 +23,4 @@ fn panic(_info: &PanicInfo) -> ! {
     }
 }
 
-pub mod peripheral_fs;
+pub mod peripherals;
