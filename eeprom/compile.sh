@@ -30,4 +30,4 @@ ${OBJCOPY} \
   build/eeprom \
   build/eeprom.bin
 
-
+ls -l build

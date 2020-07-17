@@ -13,7 +13,10 @@
 LittleEndian();
 
 enum <char> DATA_TYPE {
-BI_EMPTY = 0x00,BI_INT8 = 0x01,BI_INT16 = 0x02,BI_INT32 = 0x03,
+BI_NULL = 0x00,
+BI_INT8 = 0x01,
+BI_INT16 = 0x02,
+BI_INT32 = 0x03,
 BI_INT64 = 0x04,
 BI_INT128 = 0x05,
 BI_BYTES = 0x06,
