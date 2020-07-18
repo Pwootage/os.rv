@@ -1,4 +1,5 @@
 use volatile_register::{RW, RO};
+use core::fmt;
 
 pub struct BasicFIFO {
     p: &'static mut BasicFIFORegisters
@@ -25,14 +26,18 @@ impl BasicFIFO {
         }
     }
 
-    pub fn write(&mut self, value: &str) {
-        for c in value.bytes() {
-            unsafe { self.p.fifo.write(c) }
+    pub fn write_ready(&mut self) {
+        unsafe { 
+            self.p.write_ready.write(1)
         }
     }
+}
 
-
-    pub fn write_ready(&mut self) {
-        unsafe { self.p.write_ready.write(1) }
+impl fmt::Write for BasicFIFO {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        for c in s.bytes() {
+            unsafe { self.p.fifo.write(c) }
+        }
+        Ok(())
     }
 }
