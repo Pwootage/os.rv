@@ -17,10 +17,10 @@ ${CXX} \
   -Wl,--gc-sections \
   -mcmodel=medany \
   -mabi=ilp32 \
-  -march=rv32im \
+  -march=rv32imac \
   -T riscv64-virt.ld \
   -g \
-  -O0 \
+  -Os \
   -o build/eeprom \
   main.cpp \
   boot.S
