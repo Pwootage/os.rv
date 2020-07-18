@@ -361,7 +361,7 @@ uint32_t read_kernel() {
 }
 
 extern "C" {
-    int main() {
+    void main() {
         // Attempt to read /kernel from any FS
         uint32_t entry = read_kernel();
 
@@ -370,7 +370,7 @@ extern "C" {
         :
         :"r" (entry)
         );
-
+        // Past here is unreachable, kernel will stomp all registers
         PANIC_MSG("Kernel ended execution");
     }
 }
