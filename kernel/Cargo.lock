@@ -20,15 +20,31 @@ dependencies = [
 
 [[package]]
 name = "bit_field"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed8765909f9009617974ab6b7d332625b320b33c326b1e9321382ef1999b5d56"
-
-[[package]]
-name = "bit_field"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a165d606cf084741d4ac3a28fb6e9b1eb0bd31f6cd999098cfddb0b2ab381dc0"
+
+[[package]]
+name = "bitfield"
+version = "0.13.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "46afbd2983a5d5a7bd740ccb198caf5b82f45c40c09c0eed36052d91cb92e719"
+
+[[package]]
+name = "bitvec"
+version = "0.17.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "41262f11d771fd4a61aa3ce019fca363b4b6c282fca9da2a31186d3965a47a5c"
+dependencies = [
+ "either",
+ "radium",
+]
+
+[[package]]
+name = "either"
+version = "1.5.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bb1f6b1ce1c140482ea30ddd3335fc0024ac7ee112895426e0a629a6c20adfe3"
 
 [[package]]
 name = "goblin"
@@ -44,9 +60,12 @@ dependencies = [
 name = "kernel"
 version = "0.1.0"
 dependencies = [
+ "bitfield",
+ "bitvec",
  "goblin",
- "riscv 0.6.0",
+ "riscv",
  "riscv-rt",
+ "spin",
  "volatile-register",
 ]
 
@@ -88,9 +107,15 @@ dependencies = [
 
 [[package]]
 name = "r0"
-version = "0.2.2"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2a38df5b15c8d5c7e8654189744d8e396bddc18ad48041a500ce52d6948941f"
+checksum = "bd7a31eed1591dcbc95d92ad7161908e72f4677f8fabf2a32ca49b4237cbf211"
+
+[[package]]
+name = "radium"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "def50a86306165861203e7f84ecffbbdfdea79f0e51039b33de1e952358c47ac"
 
 [[package]]
 name = "rand"
@@ -136,34 +161,25 @@ checksum = "26412eb97c6b088a6997e05f69403a802a92d520de2f8e63c2b65f9e0f47c4e8"
 
 [[package]]
 name = "riscv"
-version = "0.5.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6bb785ce81e0bd87b8d1d357266eeb03f081d9d5871a31e7f95b7e6fd67002eb"
-dependencies = [
- "bare-metal",
- "bit_field 0.9.0",
-]
-
-[[package]]
-name = "riscv"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2f0b705d428e9d0f78e2bb73093887ee58a83c9688de3faedbb4c0631c4618e"
 dependencies = [
  "bare-metal",
- "bit_field 0.10.0",
+ "bit_field",
  "riscv-target",
 ]
 
 [[package]]
 name = "riscv-rt"
-version = "0.6.1"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3beb2e0d8513e3679d768c824fc0462b1fc94009f5b3b3770835e885e3b62634"
+checksum = "b7fe583b2216c75d6f35996919c09fd4011fbc8f6bf31e5fbc97483a6aaa8bdd"
 dependencies = [
  "r0",
- "riscv 0.5.4",
+ "riscv",
  "riscv-rt-macros",
+ "riscv-target",
 ]
 
 [[package]]
@@ -217,6 +233,12 @@ name = "semver-parser"
 version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
+
+[[package]]
+name = "spin"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6e63cff320ae2c57904679ba7cb63280a3dc4613885beafb148ee7bf9aa9042d"
 
 [[package]]
 name = "syn"

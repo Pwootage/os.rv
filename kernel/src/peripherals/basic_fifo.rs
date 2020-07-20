@@ -1,5 +1,6 @@
 use volatile_register::{RW, RO};
 use core::fmt;
+use crate::peripherals::stream::{InStream, OutStream};
 
 pub struct BasicFIFO {
     p: &'static mut BasicFIFORegisters
@@ -19,6 +20,9 @@ impl BasicFIFO {
     pub fn panic_fifo() -> BasicFIFO {
         return BasicFIFO::new(0x1000_2000)
     }
+    pub fn print_fifo() -> BasicFIFO {
+        return BasicFIFO::new(0x1000_0000)
+    }
 
     fn new(addr: u32) -> BasicFIFO {
         BasicFIFO {
@@ -27,16 +31,30 @@ impl BasicFIFO {
     }
 
     pub fn write_ready(&mut self) {
-        unsafe { 
-            self.p.write_ready.write(1)
+        unsafe {
+            self.p.write_ready.write(1);
+            riscv::asm::ebreak();
         }
     }
+}
+
+impl InStream for BasicFIFO {
+    fn read(&mut self) -> u8 {
+        self.p.fifo.read()
+    }
+}
+
+impl OutStream for BasicFIFO {
+    fn write(&mut self, v: u8) {
+        unsafe { self.p.fifo.write(v) }
+    }
+
 }
 
 impl fmt::Write for BasicFIFO {
     fn write_str(&mut self, s: &str) -> fmt::Result {
         for c in s.bytes() {
-            unsafe { self.p.fifo.write(c) }
+            self.write(c)
         }
         Ok(())
     }

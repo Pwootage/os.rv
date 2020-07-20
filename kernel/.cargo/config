@@ -1,13 +1,13 @@
 [target.riscv32imac-unknown-none-elf]
 rustflags = [
   "-C", "link-arg=-Tmemory.x",
-  "-C", "link-arg=-Tlink.x",
+  "-C", "link-arg=-Tlink_kernel.x"
 ]
 
-[target.riscv64gc-unknown-none-elf]
+[target.riscv32gc-unknown-none-elf]
 rustflags = [
   "-C", "link-arg=-Tmemory.x",
-  "-C", "link-arg=-Tlink.x",
+  "-C", "link-arg=-Tlink_kernel.x"
 ]
 
 
