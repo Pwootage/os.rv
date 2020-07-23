@@ -65,6 +65,5 @@ fn panic(info: &PanicInfo) -> ! {
 }
 
 pub mod peripherals;
-pub mod page_tables;
 pub mod drivers;
 pub mod mmu;

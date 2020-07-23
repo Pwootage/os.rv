@@ -2,6 +2,7 @@ use std::env;
 use std::fs::File;
 use std::io::Write;
 use std::path::Path;
+use cc::Build;
 
 /// Put the linker script somewhere the linker can find it.
 fn main() {
@@ -17,4 +18,10 @@ fn main() {
 
     println!("cargo:rerun-if-changed=memory.x");
     println!("cargo:rerun-if-changed=build.rs");
+
+    // assemble the `asm.s` file
+    Build::new().file("src/mode_change.S").compile("asm"); // <- NEW!
+
+    // rebuild if `mode_changes` changed
+    println!("cargo:rerun-if-changed=src/mode_change.S"); // <- NEW!
 }
